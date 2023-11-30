@@ -32,26 +32,26 @@ def main():
         'database': 'prova'
     }
 
-    # Connessione al database MySQL
+    # Connessione al database
     try:
         conn = mysql.connector.connect(**db_config)
         cursor = conn.cursor()
 
-        # Ottieni dati dall'API
+        # Prende i dati dalle API
         api_data_list = get_api_data(api_url)
 
         for api_data in api_data_list:
-            # Inserisci o aggiorna dati nel database
+            # Inserisce o aggiorna dati nel database
             update_or_insert_data_in_database(api_data, cursor)
 
-        # Conferma e chiude la connessione con il database
+        # Commit delle modifiche
         conn.commit()
 
     except Exception as e:
         print(f"Errore durante l'esecuzione dello script: {e}")
 
     finally:
-        # Chiude la connessione con il database
+        # Chiude la connessione con il db
         cursor.close()
         conn.close()
 
