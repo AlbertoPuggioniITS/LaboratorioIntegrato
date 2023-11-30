@@ -2,9 +2,9 @@
 
 ##  Ruoli:
 # DB: Gabriele Inglese. Si occupa di definire i seguenti punti:
-# 1) Schema Entità Relazione
-# 2) Definire lo script di creazione del database e il relativo script di creazione e mantenimento delle tabelle
-# 3) Documentazione
+1) Schema Entità Relazione
+2) Definire lo script di creazione del database e il relativo script di creazione e mantenimento delle tabelle
+3) Documentazione
 
 # ETL: Alberto Puggioni
 # Ruolo che si occupa di:
