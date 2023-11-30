@@ -13,7 +13,7 @@
 3) Sviluppare lo script di Extraction Transformation Load dei dati dalle API's al database di appoggio
 4) Documentazione
 
-# Metabase:
+# Metabase: Francesco Messana
 # Ruolo che si occupa di.
 1) Capire quali indicatori mostrare nelle dashboards
 2) Profilazione delle dashboards (dashboards diverse in base al ruolo)
