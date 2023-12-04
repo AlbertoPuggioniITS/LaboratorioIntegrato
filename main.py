@@ -1,6 +1,8 @@
+# Importazione delle librerie necessarie (eventualmente da cambiare in base al db scelto)
 import requests
 import mysql.connector
 
+# Funzione di request per le API
 def get_api_data(api_url):
     try:
         response = requests.get(api_url)
@@ -9,10 +11,12 @@ def get_api_data(api_url):
     except requests.exceptions.RequestException as e:
         raise SystemExit(e)
 
+# Fetch per controllare i record presenti sul db
 def fetch_data_from_database(cursor, post_id):
     cursor.execute('SELECT postId, userId, title, body FROM posts WHERE postId = %s', (post_id,))
     return cursor.fetchone()
 
+# Funzione che inserisce / aggiorna i record sul db
 def update_or_insert_data_in_database(data, cursor):
     try:
         cursor.execute('INSERT INTO posts (postId, userId, title, body) VALUES (%s, %s, %s, %s) '
@@ -23,6 +27,7 @@ def update_or_insert_data_in_database(data, cursor):
         print(f"Errore durante l'operazione nel database: {err}")
         raise
 
+# Funzione che prende le API's da una route predefinita + impostazioni di connessione con il db
 def main():
     api_url = 'https://jsonplaceholder.typicode.com/posts'
     db_config = {
@@ -32,7 +37,7 @@ def main():
         'database': 'prova'
     }
 
-    # Connessione al database
+    # Effettua una connessione al database
     try:
         conn = mysql.connector.connect(**db_config)
         cursor = conn.cursor()
@@ -47,6 +52,7 @@ def main():
         # Commit delle modifiche
         conn.commit()
 
+# Raise exception se ci dovessero essere errori durante l'esecuzione dello script
     except Exception as e:
         print(f"Errore durante l'esecuzione dello script: {e}")
 
