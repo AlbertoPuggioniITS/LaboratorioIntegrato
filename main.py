@@ -2,7 +2,7 @@
 import requests
 import mysql.connector
 
-# Funzione di request per le API
+# Funzione di request per le API's
 def get_api_data(api_url):
     try:
         response = requests.get(api_url)
