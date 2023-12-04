@@ -18,4 +18,4 @@ DB: Gabriele Inglese. Si occupa di definire i seguenti punti:
 1) Capire quali indicatori mostrare nelle dashboards
 2) Profilazione delle dashboards (dashboards diverse in base al ruolo)
 3) Questions
-4) Documentazione
+4) Documentazione 
