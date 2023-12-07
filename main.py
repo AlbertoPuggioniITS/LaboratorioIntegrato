@@ -1,6 +1,7 @@
-# Importazione delle librerie necessarie (eventualmente da cambiare in base al db scelto)
 import requests
 import mysql.connector
+import schedule
+import time
 
 # Funzione di request per le API's
 def get_api_data(api_url):
@@ -52,7 +53,6 @@ def main():
         # Commit delle modifiche
         conn.commit()
 
-# Raise exception se ci dovessero essere errori durante l'esecuzione dello script
     except Exception as e:
         print(f"Errore durante l'esecuzione dello script: {e}")
 
@@ -61,5 +61,11 @@ def main():
         cursor.close()
         conn.close()
 
-if __name__ == "__main__":
-    main()
+
+# Schedule dell'esecuzione dello script ogni sabato alle 01:00
+schedule.every().saturday.at("01:00").do(main)
+
+# Loop per eseguire continuamente il programma
+while True:
+    schedule.run_pending()
+    time.sleep(1)
