@@ -68,7 +68,7 @@ def main():
 
 
 
-# Schedule dell'esecuzione dello script ogni sabato alle 01:00
+# Schedule dell'esecuzione dello script ogni giorno X alle ore XYZ
 schedule.every().tuesday.at("12:00").do(main)
 
 # Loop per eseguire continuamente il programma
