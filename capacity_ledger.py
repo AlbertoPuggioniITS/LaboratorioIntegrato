@@ -15,7 +15,7 @@ def get_api_data(api_url):
 # Funzione che inserisce / aggiorna i record sul db
 def update_or_insert_data_in_database(data, cursor):
     try:
-        cursor.execute('INSERT INTO work_order (entry_no, posting_date, item_no, type, no, document_no, description, routing_no, routing_reference_no, operation_no, output_quantity, unit_of_measure_code, scrap_quantity, setup_time, run_time, stop_time, cap_unit_of_measure_code, starting_time, ending_time, order_type, order_no, order_line_no) '
+        cursor.execute('INSERT INTO capacity_ledger (entry_no, posting_date, item_no, type, no, document_no, description, routing_no, routing_reference_no, operation_no, output_quantity, unit_of_measure_code, scrap_quantity, setup_time, run_time, stop_time, cap_unit_of_measure_code, starting_time, ending_time, order_type, order_no, order_line_no) '
                        'VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, '
                        '%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s) ON DUPLICATE KEY UPDATE posting_date = VALUES(posting_date), '
                        'item_no = VALUES(item_no), type = VALUES(type), no = VALUES(no), document_no = VALUES(document_no), description = VALUES(description), routing_no = VALUES(routing_no), routing_reference_no = VALUES(routing_reference_no), '
@@ -32,7 +32,7 @@ def update_or_insert_data_in_database(data, cursor):
 
 # Funzione che prende le API's da una route predefinita + impostazioni di connessione con il db
 def main():
-    api_url = 'https://mocki.io/v1/07da661e-cdbe-487e-b272-c931031165dd'
+    api_url = 'https://mocki.io/v1/273b538d-995c-4572-8fac-1c7df0bea6df'
     db_config = {
         'host': 'localhost',
         'user': 'root',
@@ -69,7 +69,7 @@ def main():
 
 
 # Schedule dell'esecuzione dello script ogni giorno X alle ore XYZ
-schedule.every().tuesday.at("12:30").do(main)
+schedule.every().tuesday.at("12:53").do(main)
 
 # Loop per eseguire continuamente il programma
 while True:
