@@ -32,7 +32,7 @@ def update_or_insert_data_in_database(data, cursor):
 
 # Funzione che prende le API's da una route predefinita + impostazioni di connessione con il db
 def main():
-    api_url = 'https://mocki.io/v1/273b538d-995c-4572-8fac-1c7df0bea6df'
+    api_url = 'https://mocki.io/v1/1bea4661-b3f6-4e1f-9fcb-d978e7f831e7'
     db_config = {
         'host': 'localhost',
         'user': 'root',
@@ -67,14 +67,3 @@ def main():
         conn.close()
 
 
-
-# Schedule dell'esecuzione dello script ogni giorno X alle ore XYZ
-schedule.every().tuesday.at("12:53").do(main)
-
-# Loop per eseguire continuamente il programma
-while True:
-    schedule.run_pending()
-    time.sleep(1)
-
-
-main()
