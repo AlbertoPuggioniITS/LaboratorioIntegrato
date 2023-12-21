@@ -15,6 +15,10 @@ def get_api_data(api_url):
 # Funzione per inserire/aggiornare i record nel database
 def update_or_insert_data_in_database(data, cursor):
     try:
+        # Rimuovere le colonne indesiderate dal dizionario data
+        excluded_columns = ["@odata.etag", "SystemId"]
+        data = {key: value for key, value in data.items() if key not in excluded_columns}
+
         cursor.execute("""
             INSERT INTO item_ledger 
             (entry_no, item_no, posting_date, entry_type, source_no, document_no, description, location_code, 
@@ -29,10 +33,10 @@ def update_or_insert_data_in_database(data, cursor):
             document_line_no = VALUES(document_line_no), order_type = VALUES(order_type), 
             order_no = VALUES(order_no), order_line_no = VALUES(order_line_no)
         """,
-                       (data['entry_no'], data['item_no'], data['posting_date'], data['entry_type'], data['source_no'],
-                        data['document_no'], data['description'], data['location_code'], data['quantity'],
-                        data['unit_of_measure_code'], data['item_category_code'], data['document_type'],
-                        data['document_line_no'], data['order_type'], data['order_no'], data['order_line_no']))
+        (data['entry_no'], data['item_no'], data['posting_date'], data['entry_type'], data['source_no'],
+         data['document_no'], data['description'], data['location_code'], data['quantity'],
+         data['unit_of_measure_code'], data['item_category_code'], data['document_type'],
+         data['document_line_no'], data['order_type'], data['order_no'], data['order_line_no']))
         print("Dati inseriti o aggiornati nel database con successo.")
     except mysql.connector.Error as err:
         print(f"Errore durante l'operazione nel database: {err}")
@@ -40,7 +44,7 @@ def update_or_insert_data_in_database(data, cursor):
 
 # Funzione principale
 def main():
-    api_url = 'https://mocki.io/v1/493e2388-fa94-473e-a209-fac30bfdaa65'
+    api_url = 'https://mocki.io/v1/62f16fc8-0bc5-4a7d-bf0b-603b697da556'
     db_config = {
         'host': 'localhost',
         'user': 'root',
@@ -73,5 +77,3 @@ def main():
         # Chiusura della connessione al database
         cursor.close()
         conn.close()
-
-

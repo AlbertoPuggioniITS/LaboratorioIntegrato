@@ -32,7 +32,7 @@ def update_or_insert_data_in_database(data, cursor):
 
 # Funzione che prende le API's da una route predefinita + impostazioni di connessione con il db
 def main():
-    api_url = 'https://mocki.io/v1/1bea4661-b3f6-4e1f-9fcb-d978e7f831e7'
+    api_url = 'https://mocki.io/v1/f9e1d377-9b43-41a5-a7b0-6f7e8ae28cf5'
     db_config = {
         'host': 'localhost',
         'user': 'root',
@@ -65,5 +65,3 @@ def main():
         # Chiude la connessione con il db
         cursor.close()
         conn.close()
-
-

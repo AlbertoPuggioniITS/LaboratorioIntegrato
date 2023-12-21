@@ -33,7 +33,7 @@ def run_jobs():
 # Schedule dell'esecuzione dello script ogni sabato alle ore 01:00
 def main():
     # Schedule dell'esecuzione dello script ogni sabato alle ore 01:00
-    schedule.every().saturday.at("01:00").do(run_jobs)
+    schedule.every().thursday.at("16:15").do(run_jobs)
 
     # Loop per eseguire il programma
     while True:
@@ -42,3 +42,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+    # NTLM library
