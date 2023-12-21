@@ -30,10 +30,10 @@ def run_jobs():
         capacity_ledger_process.join()
         item_ledger_process.join()
 
-# Schedule dell'esecuzione dello script ogni sabato alle ore 01:00
+# Schedule dell'esecuzione
 def main():
-    # Schedule dell'esecuzione dello script ogni sabato alle ore 01:00
-    schedule.every().thursday.at("16:15").do(run_jobs)
+    # Esecuzione dello script ogni sabato alle ore 01:00
+    schedule.every().saturday.at("01:00").do(run_jobs)
 
     # Loop per eseguire il programma
     while True:
