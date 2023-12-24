@@ -1,7 +1,6 @@
 import requests
 import mysql.connector
-import schedule
-import time
+
 
 # Funzione di request per le API's
 def get_api_data(api_url):

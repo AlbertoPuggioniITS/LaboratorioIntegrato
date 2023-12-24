@@ -33,7 +33,7 @@ def run_jobs():
 # Schedule dell'esecuzione
 def main():
     # Esecuzione dello script ogni sabato alle ore 01:00
-    schedule.every().saturday.at("01:00").do(run_jobs)
+    schedule.every().sunday.at("19:34").do(run_jobs)
 
     # Loop per eseguire il programma
     while True:

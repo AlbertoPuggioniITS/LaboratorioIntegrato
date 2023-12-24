@@ -1,7 +1,6 @@
 import requests
 import mysql.connector
-import schedule
-import time
+
 
 # Funzione per ottenere i dati dalle API
 def get_api_data(api_url):
@@ -44,7 +43,7 @@ def update_or_insert_data_in_database(data, cursor):
 
 # Funzione principale
 def main():
-    api_url = 'https://mocki.io/v1/62f16fc8-0bc5-4a7d-bf0b-603b697da556'
+    api_url = 'https://mocki.io/v1/3147771d-a04c-442b-b857-6f068c7c29e5'
     db_config = {
         'host': 'localhost',
         'user': 'root',
