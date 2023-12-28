@@ -1,11 +1,13 @@
 import requests
 import mysql.connector
+from requests_ntlm import HttpNtlmAuth
 
 
 # Funzione di request per le API's
-def get_api_data(api_url):
+## Aggiunto username, password e domain per collegarsi a Business Central
+def get_api_data(api_url, username, password, domain):
     try:
-        response = requests.get(api_url)
+        response = requests.get(api_url, auth=HttpNtlmAuth(f'{domain}\\{username}', password))
         response.raise_for_status()
         return response.json()
     except requests.exceptions.RequestException as e:
@@ -14,6 +16,9 @@ def get_api_data(api_url):
 # Funzione che inserisce / aggiorna i record sul db
 def update_or_insert_data_in_database(data, cursor):
     try:
+        # Esclude le colonne "@odata.etag e SystemId dalle API per l'importazione delle API nel db
+        excluded_columns = ["@odata.etag", "SystemId"]
+        data = {key: value for key, value in data.items() if key not in excluded_columns}
         cursor.execute('INSERT INTO capacity_ledger (entry_no, posting_date, item_no, type, no, document_no, description, routing_no, routing_reference_no, operation_no, output_quantity, unit_of_measure_code, scrap_quantity, setup_time, run_time, stop_time, cap_unit_of_measure_code, starting_time, ending_time, order_type, order_no, order_line_no) '
                        'VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, '
                        '%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s) ON DUPLICATE KEY UPDATE posting_date = VALUES(posting_date), '
@@ -31,6 +36,7 @@ def update_or_insert_data_in_database(data, cursor):
 
 # Funzione che prende le API's da una route predefinita + impostazioni di connessione con il db
 def main():
+    #api_url = "http://localhost:7048/BC210/api/its/gamma/v1.0/$metadata#companies(7841464b-e73a-ed11-bbaf-6045bd8e5a17)/capacityentries"
     api_url = 'https://mocki.io/v1/f9e1d377-9b43-41a5-a7b0-6f7e8ae28cf5'
     db_config = {
         'host': 'localhost',
@@ -39,13 +45,18 @@ def main():
         'database': 'laboratorio'
     }
 
+    # Credenziali NTLM per Business Central
+    bc_username = 'username_di_business_central'
+    bc_password = 'password_di_business_central'
+    bc_domain = 'domain_di_business_central'
+
     # Effettua una connessione al database
     try:
         conn = mysql.connector.connect(**db_config)
         cursor = conn.cursor()
 
         # Prende i dati dalle API
-        api_data_list = get_api_data(api_url)
+        api_data_list = get_api_data(api_url, bc_username, bc_password, bc_domain)
 
         for api_data in api_data_list['value']:
             # Inserisce o aggiorna dati nel database

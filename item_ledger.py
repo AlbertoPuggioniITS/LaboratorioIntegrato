@@ -1,11 +1,14 @@
 import requests
 import mysql.connector
+from requests_ntlm import HttpNtlmAuth
 
 
 # Funzione per ottenere i dati dalle API
-def get_api_data(api_url):
+## aggiunti username, password e domain per connessione con Business Central
+def get_api_data(api_url, username, password, domain):
     try:
-        response = requests.get(api_url)
+        # In response aggiunto auth=HttpNtlmAuth
+        response = requests.get(api_url, auth=HttpNtlmAuth(f'{domain}\\{username}', password))
         response.raise_for_status()
         return response.json()
     except requests.exceptions.RequestException as e:
@@ -43,6 +46,7 @@ def update_or_insert_data_in_database(data, cursor):
 
 # Funzione principale
 def main():
+    # api_url = "http://localhost:7048/BC210/api/its/gamma/v1.0/$metadata#companies(7841464b-e73a-ed11-bbaf-6045bd8e5a17)/ledgerentries"
     api_url = 'https://mocki.io/v1/3147771d-a04c-442b-b857-6f068c7c29e5'
     db_config = {
         'host': 'localhost',
@@ -51,13 +55,18 @@ def main():
         'database': 'laboratorio'
     }
 
+    # Credenziali di Business Central
+    bc_username = 'username_di_business_central'
+    bc_password = 'password_di_business_central'
+    bc_domain = 'domain_di_business_central'
+
     # Connessione al database
     try:
         conn = mysql.connector.connect(**db_config)
         cursor = conn.cursor()
 
         # Ottenimento dei dati dalle API
-        api_data_list = get_api_data(api_url)
+        api_data_list = get_api_data(api_url, bc_username, bc_password, bc_domain)
 
         # Inserimento o aggiornamento dei dati nel database
         for api_data in api_data_list['value']:
