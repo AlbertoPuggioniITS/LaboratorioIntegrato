@@ -4,10 +4,9 @@ import time
 from capacity_ledger import main as capacity_ledger_main
 from item_ledger import main as item_ledger_main
 
-# Credenziali NTLM per Business Central
-bc_username = 'your_bc_username'
-bc_password = 'your_bc_password'
-bc_domain = 'your_bc_domain'
+
+
+
 
 # Funzione che crea due processi distinti per gli script di capacity_ledger e item_ledger
 def run_jobs():
@@ -37,7 +36,7 @@ def run_jobs():
 # Schedule dell'esecuzione
 def main():
     # Esecuzione dello script ogni sabato alle ore 01:00
-    schedule.every().saturday.at("01:00").do(run_jobs)
+    schedule.every().friday.at("20:20:55").do(run_jobs)
 
     # Loop per eseguire il programma
     while True:

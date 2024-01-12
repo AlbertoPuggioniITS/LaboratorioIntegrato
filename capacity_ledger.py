@@ -5,9 +5,9 @@ from requests_ntlm import HttpNtlmAuth
 
 # Funzione di request per le API's
 ## Aggiunto username, password e domain per collegarsi a Business Central
-def get_api_data(api_url, username, password, domain):
+def get_api_data(api_url, bc_username, bc_password, bc_domain):
     try:
-        response = requests.get(api_url, auth=HttpNtlmAuth(f'{domain}\\{username}', password))
+        response = requests.get(api_url, auth=HttpNtlmAuth(bc_username, bc_password,bc_password))
         response.raise_for_status()
         return response.json()
     except requests.exceptions.RequestException as e:
@@ -19,6 +19,12 @@ def update_or_insert_data_in_database(data, cursor):
         # Esclude le colonne "@odata.etag e SystemId dalle API per l'importazione delle API nel db
         excluded_columns = ["@odata.etag", "SystemId"]
         data = {key: value for key, value in data.items() if key not in excluded_columns}
+
+        # Aggiunta la condizione di escludere dall'import nel db i record settati a 0
+        # if str(data['starting_time']).startswith('0000-00-00 00:00:00') or str(data['ending_time']).startswith('0000-00-00 00:00:00'):
+        #     print("Il record non verrà inserito poiché starting_time o ending_time è 0000-00-00 00:00:00.")
+        #     return
+
         cursor.execute('INSERT INTO capacity_ledger (entry_no, posting_date, item_no, type, no, document_no, description, routing_no, routing_reference_no, operation_no, output_quantity, unit_of_measure_code, scrap_quantity, setup_time, run_time, stop_time, cap_unit_of_measure_code, starting_time, ending_time, order_type, order_no, order_line_no) '
                        'VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, '
                        '%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s) ON DUPLICATE KEY UPDATE posting_date = VALUES(posting_date), '
@@ -36,8 +42,8 @@ def update_or_insert_data_in_database(data, cursor):
 
 # Funzione che prende le API's da una route predefinita + impostazioni di connessione con il db
 def main():
-    #api_url = "http://localhost:7048/BC210/api/its/gamma/v1.0/$metadata#companies(7841464b-e73a-ed11-bbaf-6045bd8e5a17)/capacityentries"
-    api_url = 'https://mocki.io/v1/f9e1d377-9b43-41a5-a7b0-6f7e8ae28cf5'
+    api_url = "http://localhost:7048/BC210/api/its/gamma/v1.0/companies(7841464b-e73a-ed11-bbaf-6045bd8e5a17)/capacityentries"
+    #api_url = 'https://mocki.io/v1/f9e1d377-9b43-41a5-a7b0-6f7e8ae28cf5'
     db_config = {
         'host': 'localhost',
         'user': 'root',
@@ -46,9 +52,9 @@ def main():
     }
 
     # Credenziali NTLM per Business Central
-    bc_username = 'username_di_business_central'
-    bc_password = 'password_di_business_central'
-    bc_domain = 'domain_di_business_central'
+    bc_username = 'ICTS22-24.438'
+    bc_password = 'Erp2023!'
+    bc_domain = '\studenti'
 
     # Effettua una connessione al database
     try:

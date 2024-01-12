@@ -5,10 +5,10 @@ from requests_ntlm import HttpNtlmAuth
 
 # Funzione per ottenere i dati dalle API
 ## aggiunti username, password e domain per connessione con Business Central
-def get_api_data(api_url, username, password, domain):
+def get_api_data(api_url, bc_username, bc_password, bc_domain):
     try:
         # In response aggiunto auth=HttpNtlmAuth
-        response = requests.get(api_url, auth=HttpNtlmAuth(f'{domain}\\{username}', password))
+        response = requests.get(api_url, auth=HttpNtlmAuth(bc_username, bc_password, bc_domain))
         response.raise_for_status()
         return response.json()
     except requests.exceptions.RequestException as e:
@@ -46,8 +46,8 @@ def update_or_insert_data_in_database(data, cursor):
 
 # Funzione principale
 def main():
-    # api_url = "http://localhost:7048/BC210/api/its/gamma/v1.0/$metadata#companies(7841464b-e73a-ed11-bbaf-6045bd8e5a17)/ledgerentries"
-    api_url = 'https://mocki.io/v1/3147771d-a04c-442b-b857-6f068c7c29e5'
+    api_url = "http://localhost:7048/BC210/api/its/gamma/v1.0/companies(7841464b-e73a-ed11-bbaf-6045bd8e5a17)/ledgerentries"
+    #api_url = 'https://mocki.io/v1/3147771d-a04c-442b-b857-6f068c7c29e5'
     db_config = {
         'host': 'localhost',
         'user': 'root',
@@ -56,9 +56,9 @@ def main():
     }
 
     # Credenziali di Business Central
-    bc_username = 'username_di_business_central'
-    bc_password = 'password_di_business_central'
-    bc_domain = 'domain_di_business_central'
+    bc_username = 'ICTS22-24.438'
+    bc_password = 'Erp2023!'
+    bc_domain = '\studenti'
 
     # Connessione al database
     try:
