@@ -1,0 +1,5 @@
+requests
+schedule
+requests_ntlm == 1.1.0
+mysql-connector-python
+
