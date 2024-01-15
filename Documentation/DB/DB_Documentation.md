@@ -1,8 +1,7 @@
 # Documentazione del Database
 
 ## Scopo
-
-This SQL script is designed to create two tables in our support database, reflecting the corresponding tables in Business Central.
+Il seguente script SQL e' stato pensato per replicare le tabelle presenti su Business Central su un nostro database di appoggio sul quale inserire i dati provenienti dalle API
 
 ## Tabelle
 
