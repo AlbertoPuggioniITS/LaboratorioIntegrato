@@ -4,22 +4,22 @@
 
 This SQL script is designed to create two tables in our support database, reflecting the corresponding tables in Business Central.
 
-## Tables
+## Tabelle
 
 - `capacity_ledger`
 - `item_ledger`
 
-## Database Type
+## Database scelto
 
 MySQL
 
-## Reference Site
+## Sito di Riferimento per il database
 
 [MySQL Official Website](https://www.mysql.com)
 
-## Table Definitions
+## Definizione delle tabelle
 
-### Table: capacity_ledger
+### Tabella: capacity_ledger
 
 - `entry_no`: Integer, Primary Key
 - `posting_date`: Date[..](..)
@@ -44,7 +44,7 @@ MySQL
 - `order_no`: VARCHAR(255)
 - `order_line_no`: Integer
 
-### Table: item_ledger
+### Tabella: item_ledger
 
 - `entry_no`: Integer, Primary Key
 - `item_no`: VARCHAR(255)
