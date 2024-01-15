@@ -1,27 +1,32 @@
 📦 Repository
-├── 📂 db
-│   └── 📄 db.sqlite
-│ 
-├── 📂 etl
-│   ├── 📄 db.sqlite  
-│   ├── 📄 db.sqlite  
-│   ├── 📄 db.sqlite  
-│   └── 📄 db.sqlite
-│         
-├── 📂 documentation
-│   ├── 📂 business_central
-│   │   └── 📄 db.sqlite
-│   │      
-│   ├── 📂 power_apps
-│   │   └── 📄 db.sqlite
-│   │       
-│   ├── 📂 etl
-│   │   └── 📄 db.sqlite
-│   │   └── 📄 db.sqlite   
-│   │ 
-│   └── 📂 metabase
-│   │   └── 📄 db.sqlite
-│   │   └── 📄 db.sqlite    
-│   │    
-└── 📄 readme
-   
+├── 📂 DB
+│   └── 📄 script_database.sql
+│
+├── 📂 ETL
+│   ├── 📄 main.py
+│   ├── 📄 capacity_ledger.py
+│   ├── 📄 item_ledger.py
+│   └── 📄 requirements.txt
+│
+├── 📂 Documentation
+│   ├── 📂 Business Central
+│   │   └── 📄 Documentation_BC
+│   │
+│   ├── 📂 DB
+│   │   └── 📄 DB_Documentation.md
+│   │   └── 📄 DB_Documentation_EN.md
+│   │
+│   ├── 📂 ETL
+│   │   └── 📄 ETL_Documentation.md
+│   │   └── 📄 ETL_Documentation_EN.md
+│   │
+│   ├── 📂 Metabase
+│   │   └── 📄 Metabase_Documentation.md
+│   │   └── 📄 Metabase_Documentation_EN.md
+│   │
+│   └── 📂 Power Apps
+│   │   └── 📄 Documentation_PA
+│   │
+│   │
+└── 📄 README.md
+
