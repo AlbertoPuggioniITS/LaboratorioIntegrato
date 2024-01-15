@@ -1,23 +1,23 @@
+# Import necessary libraries
 import requests
 import mysql.connector
 from requests_ntlm import HttpNtlmAuth
 
-
-# Funzione per ottenere i dati dalle API
-## aggiunti username, password e domain per connessione con Business Central
+# Function to retrieve data from APIs
+## Added username, password, and domain for connection with Business Central
 def get_api_data(api_url, bc_username, bc_password, bc_domain):
     try:
-        # In response aggiunto auth=HttpNtlmAuth
+        # Added auth=HttpNtlmAuth to the response
         response = requests.get(api_url, auth=HttpNtlmAuth(bc_username, bc_password, bc_domain))
         response.raise_for_status()
         return response.json()
     except requests.exceptions.RequestException as e:
         raise SystemExit(e)
 
-# Funzione per inserire/aggiornare i record nel database
+# Function to insert/update records in the database
 def update_or_insert_data_in_database(data, cursor):
     try:
-        # Rimuovere le colonne indesiderate dal dizionario data
+        # Remove unwanted columns from the data dictionary
         excluded_columns = ["@odata.etag", "SystemId"]
         data = {key: value for key, value in data.items() if key not in excluded_columns}
 
@@ -39,12 +39,12 @@ def update_or_insert_data_in_database(data, cursor):
          data['document_no'], data['description'], data['location_code'], data['quantity'],
          data['unit_of_measure_code'], data['item_category_code'], data['document_type'],
          data['document_line_no'], data['order_type'], data['order_no'], data['order_line_no']))
-        print("Dati inseriti o aggiornati nel database con successo.")
+        print("Data inserted or updated in the database successfully.")
     except mysql.connector.Error as err:
-        print(f"Errore durante l'operazione nel database: {err}")
+        print(f"Error during database operation: {err}")
         raise
 
-# Funzione principale
+# Function that fetches APIs from a predefined route + database connection settings
 def main():
     api_url = "http://localhost:7048/BC210/api/its/gamma/v1.0/companies(7841464b-e73a-ed11-bbaf-6045bd8e5a17)/ledgerentries"
     #api_url = 'https://mocki.io/v1/3147771d-a04c-442b-b857-6f068c7c29e5'
@@ -55,33 +55,33 @@ def main():
         'database': 'laboratorio'
     }
 
-    # Credenziali di Business Central
+    # Business Central credentials for authentication
     bc_username = 'ICTS22-24.438'
-    bc_password = 'Erp2023!'
+    bc_password = '********'
     bc_domain = '\studenti'
 
-    # Connessione al database
+    # Establish a connection to the database
     try:
         conn = mysql.connector.connect(**db_config)
         cursor = conn.cursor()
 
-        # Ottenimento dei dati dalle API
+        # Get data from APIs
         api_data_list = get_api_data(api_url, bc_username, bc_password, bc_domain)
 
-        # Inserimento o aggiornamento dei dati nel database
+        # Insert or update data in the database
         for api_data in api_data_list['value']:
             update_or_insert_data_in_database(api_data, cursor)
 
-        # Commit delle modifiche
+        # Commit changes
         conn.commit()
 
     except mysql.connector.Error as err:
-        print(f"Errore durante la connessione al database: {err}")
+        print(f"Error connecting to the database: {err}")
 
     except Exception as e:
-        print(f"Si è verificato un errore: {e}")
+        print(f"An error occurred: {e}")
 
     finally:
-        # Chiusura della connessione al database
+        # Close the database connection
         cursor.close()
         conn.close()
