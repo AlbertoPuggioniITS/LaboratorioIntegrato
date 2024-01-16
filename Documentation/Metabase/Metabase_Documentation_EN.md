@@ -43,8 +43,6 @@ Example (`application.properties`):
 # database.url=jdbc:postgresql://localhost:5432/metabase
 # database.user=your_username
 # database.password=your_password
-
-
 ```
 
 ### Step 4: Start Metabase
