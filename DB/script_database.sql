@@ -48,5 +48,6 @@ CREATE TABLE IF NOT EXISTS item_ledger (
     document_type VARCHAR(255),
     document_line_no INT,
     order_type VARCHAR(255),
-    order_no VARCHAR(255)
+    order_no VARCHAR(255),
+    order_line_no INT
 );
