@@ -37,8 +37,8 @@ MySQL
 - `run_time`: Integer
 - `stop_time`: Integer
 - `cap_unit_of_measure_code`: VARCHAR(255)
-- `starting_time`: DATETIME
-- `ending_time`: DATETIME
+- `starting_time`: TIME
+- `ending_time`: TIME
 - `order_type`: VARCHAR(255)
 - `order_no`: VARCHAR(255)
 - `order_line_no`: Integer
@@ -60,3 +60,4 @@ MySQL
 - `document_line_no`: Integer
 - `order_type`: VARCHAR(255)
 - `order_no`: VARCHAR(255)
+-  `order_line_no`: Integer
