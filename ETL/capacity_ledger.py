@@ -21,8 +21,8 @@ def update_or_insert_data_in_database(data, cursor):
         data = {key: value for key, value in data.items() if key not in excluded_columns}
 
         # Added condition to exclude records with 'starting_time' or 'ending_time' set to '0000-00-00 00:00:00' from being imported into the database
-        if str(data['starting_time']).startswith('0000-00-00 00:00:00') or str(data['ending_time']).startswith('0000-00-00 00:00:00'):
-             print("The record will not be inserted as starting_time or ending_time is '0000-00-00 00:00:00'.")
+        if str(data['starting_time']).startswith('00:00') or str(data['ending_time']).startswith('00:00'):
+             print("The record will not be inserted as starting_time or ending_time is '00:00'.")
              return
 
         cursor.execute('INSERT INTO capacity_ledger (entry_no, posting_date, item_no, type, no, document_no, description, routing_no, routing_reference_no, operation_no, output_quantity, unit_of_measure_code, scrap_quantity, setup_time, run_time, stop_time, cap_unit_of_measure_code, starting_time, ending_time, order_type, order_no, order_line_no) '

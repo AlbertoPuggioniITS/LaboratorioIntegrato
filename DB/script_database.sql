@@ -26,8 +26,8 @@ CREATE TABLE IF NOT EXISTS capacity_ledger (
     run_time INT,
     stop_time INT,
     cap_unit_of_measure_code VARCHAR(255),
-    starting_time DATETIME,
-    ending_time DATETIME,
+    starting_time TIME,
+    ending_time TIME,
     order_type VARCHAR(255),
     order_no VARCHAR(255),
     order_line_no INT
@@ -48,4 +48,5 @@ CREATE TABLE IF NOT EXISTS item_ledger (
     document_type VARCHAR(255),
     document_line_no INT,
     order_type VARCHAR(255),
-    order_no VARCHAR(255),
+    order_no VARCHAR(255)
+);
