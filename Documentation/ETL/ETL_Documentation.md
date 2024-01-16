@@ -2,8 +2,7 @@
 
 ## Scopo del Programma
 
-Questo script ETL (Extract, Transform, Load) è stato sviluppato per automatizzare l'estrazione di dati da Business Central attraverso le API JSON. I dati estratti vengono successProgram Purpose
-This Extract, Transform, Load (ETL) script is developed to automate data extraction from Business Central through JSON APIs. The extracted data is subsequently loaded into a dedicated database. The capacity_ledger and item_ledger scripts run in parallel.ivamente caricati in un database dedicato. Gli script `capacity_ledger` e `item_ledger` vengono eseguiti in parallelo.
+Questo script ETL (Extract, Transform, Load) è stato sviluppato per automatizzare l'estrazione di dati da Business Central attraverso le API JSON. I dati estratti vengono successivamente caricati in un database dedicato. Gli script `capacity_ledger` e `item_ledger` vengono eseguiti in parallelo.
 
 ## Struttura del Progetto
 
